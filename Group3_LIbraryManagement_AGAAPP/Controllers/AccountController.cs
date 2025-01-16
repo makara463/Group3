@@ -59,10 +59,12 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
             return View(model);
         }
 
+
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login");
         }
 
 

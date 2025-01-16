@@ -101,7 +101,10 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <partial name="~/Views/Account/Logout.cshtml"/>
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+
     </li>
 
     <!-- Divider -->
