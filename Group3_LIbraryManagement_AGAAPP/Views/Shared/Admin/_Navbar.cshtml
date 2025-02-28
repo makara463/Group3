@@ -44,7 +44,6 @@
                 </form>
             </div>
         </li>
-
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -171,14 +170,13 @@
         </li>
 
         <div class="topbar-divider d-none d-sm-block"></div>
-
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                <img class="~/Admin/img-profile rounded-circle"
-                     src="~/Admin/img/undraw_profile.svg">
+               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                <img class="img-profile rounded-circle"
+                     src="~/Admin/img/photo_2023-02-28_16-30-41-removebg-preview.png">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -196,13 +194,12 @@
                     Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
+                <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
                 </a>
+                <form id="logoutForm" asp-controller="Account" asp-action="Logout" method="post" style="display: none;"></form>
             </div>
         </li>
-
     </ul>
-
 </nav>

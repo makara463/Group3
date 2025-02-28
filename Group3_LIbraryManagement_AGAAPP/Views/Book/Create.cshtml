@@ -1,0 +1,61 @@
+﻿@{
+	Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Add Book</h4>
+                </div>
+                <div class="card-body">
+                    <form id="bookForm">
+                        <!-- Title Field -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Enter book title" required>
+                        </div>
+
+                        <!-- Author Field -->
+                        <div class="mb-3">
+                            <label for="author" class="form-label">Author</label>
+                            <input type="text" class="form-control" id="author" name="author" placeholder="Enter author name" required>
+                        </div>
+
+                        <!-- Genre Field -->
+                        <div class="mb-3">
+                            <label for="genre" class="form-label">Genre</label>
+                            <select class="form-control" id="genre" name="genre" required>
+                                <option value="" selected disabled>Select genre</option>
+                                <option value="Fiction">Fiction</option>
+                                <option value="Non-Fiction">Non-Fiction</option>
+                                <option value="Science Fiction">Science Fiction</option>
+                                <option value="Fantasy">Fantasy</option>
+                                <option value="Mystery">Mystery</option>
+                                <option value="Biography">Biography</option>
+                            </select>
+                        </div>
+
+                        <!-- Publication Year Field -->
+                        <div class="mb-3">
+                            <label for="publicationYear" class="form-label">Publication Year</label>
+                            <input type="number" class="form-control" id="publicationYear" name="publicationYear" placeholder="Enter publication year" min="1000" max="9999" required>
+                        </div>
+
+                        <!-- Description Field -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter book description"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a  class="btn btn-danger" asp-controller="Book"asp-action="Index">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

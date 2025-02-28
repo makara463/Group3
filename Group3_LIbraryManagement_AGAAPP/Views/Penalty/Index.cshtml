@@ -1,0 +1,127 @@
+﻿@{
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <h2 class="text-center mb-4">Penalties</h2>
+
+    <!-- Add Penalty Button -->
+    <div class="d-flex justify-content-end mb-3">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPenaltyModal">
+            <i class="fas fa-plus"></i> Add Penalty
+        </button>
+    </div>
+
+    <!-- Penalty Table -->
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            <i class="fas fa-exclamation-triangle"></i> Penalty List
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-hover" id="penaltyTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User ID</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Penalty Amount</th>
+                        <th scope="col">Reason</th>
+                        <th scope="col">Payment Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>USR123</td>
+                        <td>John Doe</td>
+                        <td>$5.00</td>
+                        <td>Late Return</td>
+                        <td><span class="badge bg-danger">Unpaid</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#payPenaltyModal">
+                                <i class="fas fa-money-bill"></i> Pay
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>USR456</td>
+                        <td>Jane Smith</td>
+                        <td>$10.00</td>
+                        <td>Book Damage</td>
+                        <td><span class="badge bg-success">Paid</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" disabled>
+                                <i class="fas fa-check"></i> Paid
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add Penalty Modal -->
+    <div class="modal fade" id="addPenaltyModal" tabindex="-1" aria-labelledby="addPenaltyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="addPenaltyModalLabel"><i class="fas fa-exclamation-triangle"></i> Add Penalty</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPenaltyForm">
+                        <div class="mb-3">
+                            <label for="penaltyUserId" class="form-label">User ID</label>
+                            <input type="text" class="form-control" id="penaltyUserId" placeholder="Enter User ID" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="penaltyUserName" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="penaltyUserName" placeholder="Enter User Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="penaltyAmount" class="form-label">Penalty Amount</label>
+                            <input type="number" class="form-control" id="penaltyAmount" placeholder="Enter Penalty Amount" step="0.01" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="penaltyReason" class="form-label">Reason</label>
+                            <textarea class="form-control" id="penaltyReason" rows="3" placeholder="Enter Reason for Penalty" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100">Add Penalty</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pay Penalty Modal -->
+    <div class="modal fade" id="payPenaltyModal" tabindex="-1" aria-labelledby="payPenaltyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="payPenaltyModalLabel"><i class="fas fa-money-bill"></i> Pay Penalty</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="payPenaltyForm">
+                        <div class="mb-3">
+                            <label for="paymentDate" class="form-label">Payment Date</label>
+                            <input type="date" class="form-control" id="paymentDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="paymentMethod" class="form-label">Payment Method</label>
+                            <select class="form-select" id="paymentMethod" required>
+                                <option value="" disabled selected>Select Payment Method</option>
+                                <option value="cash">Cash</option>
+                                <option value="credit-card">Credit Card</option>
+                                <option value="online-transfer">Online Transfer</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Confirm Payment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
