@@ -2,12 +2,11 @@
 
 namespace Group3_LIbraryManagement_AGAAPP.Controllers
 {
-    public class BookController : Controller
+    public class ReportController : Controller
     {
         public IActionResult Index()
         {
-            return View();
+            return View("report");
         }
-
     }
 }

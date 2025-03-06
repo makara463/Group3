@@ -3,96 +3,101 @@
 }
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Library Reports</h2>
-
-    <!-- Grid Cards for Reports -->
+    <!-- Grid Cards for Admin Dashboard -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <!-- Book Report Card -->
+
+        <!-- Total Books Card -->
         <div class="col">
             <div class="card h-100 shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <i class="fas fa-book"></i> Book Report
+                    <i class="fas fa-book"></i> Total Books
                 </div>
-                <div class="card-body">
-                    <p class="card-text">View detailed information about books in the library, including availability and issuance history.</p>
+                <div class="card-body text-center">
+                    <h3 class="card-title">5,234</h3>
+                    <p class="card-text">Total books available in the library.</p>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="#" class="btn btn-primary w-100">View Report</a>
+                    <a href="/admin/books" class="btn btn-primary w-100">Manage Books</a>
                 </div>
             </div>
         </div>
 
-        <!-- User Report Card -->
+        <!-- Registered Users Card -->
         <div class="col">
             <div class="card h-100 shadow-sm">
                 <div class="card-header bg-success text-white">
-                    <i class="fas fa-users"></i> User Report
+                    <i class="fas fa-users"></i> Registered Users
                 </div>
-                <div class="card-body">
-                    <p class="card-text">View details about library users, including their borrowing history and penalties.</p>
+                <div class="card-body text-center">
+                    <h3 class="card-title">1,456</h3>
+                    <p class="card-text">Total registered users in the library system.</p>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="#" class="btn btn-success w-100">View Report</a>
+                    <a href="/admin/users" class="btn btn-success w-100">Manage Users</a>
                 </div>
             </div>
         </div>
 
-        <!-- Penalty Report Card -->
+        <!-- Pending Requests Card -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-warning text-white">
+                    <i class="fas fa-clock"></i> Pending Requests
+                </div>
+                <div class="card-body text-center">
+                    <h3 class="card-title">23</h3>
+                    <p class="card-text">Pending book requests awaiting approval.</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="/admin/requests" class="btn btn-warning w-100">View Requests</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overdue Books Card -->
         <div class="col">
             <div class="card h-100 shadow-sm">
                 <div class="card-header bg-danger text-white">
-                    <i class="fas fa-exclamation-triangle"></i> Penalty Report
+                    <i class="fas fa-exclamation-triangle"></i> Overdue Books
                 </div>
-                <div class="card-body">
-                    <p class="card-text">View penalties incurred by users due to late returns or damages.</p>
+                <div class="card-body text-center">
+                    <h3 class="card-title">45</h3>
+                    <p class="card-text">Books overdue and not yet returned by users.</p>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="#" class="btn btn-danger w-100">View Report</a>
+                    <a href="/admin/overdue" class="btn btn-danger w-100">View Overdue</a>
                 </div>
             </div>
         </div>
 
-        <!-- Attendance Report Card -->
+        <!-- Active Loans Card -->
         <div class="col">
             <div class="card h-100 shadow-sm">
                 <div class="card-header bg-info text-white">
-                    <i class="fas fa-calendar-check"></i> Attendance Report
+                    <i class="fas fa-handshake"></i> Active Loans
                 </div>
-                <div class="card-body">
-                    <p class="card-text">View attendance records of students or staff in the library.</p>
+                <div class="card-body text-center">
+                    <h3 class="card-title">312</h3>
+                    <p class="card-text">Books currently loaned out to users.</p>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="#" class="btn btn-info w-100">View Report</a>
+                    <a href="/admin/loans" class="btn btn-info w-100">Manage Loans</a>
                 </div>
             </div>
         </div>
 
-        <!-- Publication Report Card -->
+        <!-- System Logs Card -->
         <div class="col">
             <div class="card h-100 shadow-sm">
                 <div class="card-header bg-secondary text-white">
-                    <i class="fas fa-newspaper"></i> Publication Report
+                    <i class="fas fa-file-alt"></i> System Logs
                 </div>
-                <div class="card-body">
-                    <p class="card-text">View details about publications like journals, magazines, and newspapers.</p>
-                </div>
-                <div class="card-footer text-center">
-                    <a href="#" class="btn btn-secondary w-100">View Report</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Issued Books Report Card -->
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <div class="card-header bg-dark text-white">
-                    <i class="fas fa-list"></i> Issued Books Report
-                </div>
-                <div class="card-body">
-                    <p class="card-text">View a list of currently issued books and their return status.</p>
+                <div class="card-body text-center">
+                    <h3 class="card-title">1,234</h3>
+                    <p class="card-text">Recent activities and logs recorded in the system.</p>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="#" class="btn btn-dark w-100">View Report</a>
+                    <a href="/admin/logs" class="btn btn-secondary w-100">View Logs</a>
                 </div>
             </div>
         </div>

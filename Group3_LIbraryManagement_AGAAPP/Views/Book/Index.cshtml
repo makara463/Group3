@@ -1,9 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
 }
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Library Book List</h1>
-
+<div class="container">
     <!-- Add Book Button -->
     <div class="d-flex justify-content-end mb-3">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
@@ -47,7 +45,6 @@
         </tbody>
     </table>
 </div>
-
 <!-- Add Book Modal -->
 <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
     <div class="modal-dialog">
