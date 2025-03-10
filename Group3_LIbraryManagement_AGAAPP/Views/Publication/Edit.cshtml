@@ -1,0 +1,123 @@
+﻿@model Group3_LIbraryManagement_AGAAPP.Models.Publication
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+
+<h1>Edit Publication</h1>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Edit Publication Details</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Author" class="control-label"></label>
+                        <input asp-for="Author" class="form-control" />
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ISBN_Code" class="control-label"></label>
+                        <input asp-for="ISBN_Code" class="form-control" />
+                        <span asp-validation-for="ISBN_Code" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Publisher" class="control-label"></label>
+                        <input asp-for="Publisher" class="form-control" />
+                        <span asp-validation-for="Publisher" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Genre" class="control-label"></label>
+                        <input asp-for="Genre" class="form-control" />
+                        <span asp-validation-for="Genre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Publication_Type" class="control-label"></label>
+                        <input asp-for="Publication_Type" class="form-control" />
+                        <span asp-validation-for="Publication_Type" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Publication_Language" class="control-label"></label>
+                        <input asp-for="Publication_Language" class="form-control" />
+                        <span asp-validation-for="Publication_Language" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Book_Edition" class="control-label"></label>
+                        <input asp-for="Book_Edition" class="form-control" />
+                        <span asp-validation-for="Book_Edition" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Page" class="control-label"></label>
+                        <input asp-for="Page" class="form-control" />
+                        <span asp-validation-for="Page" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Available_Copy" class="control-label"></label>
+                        <input asp-for="Available_Copy" class="form-control" />
+                        <span asp-validation-for="Available_Copy" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- SweetAlert2 Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check for success message
+        if ('@TempData["SuccessMessage"]' !== '') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["SuccessMessage"]',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Index")'; // Redirect to Index page
+                }
+            });
+        }
+
+        // Check for error message
+        if ('@TempData["ErrorMessage"]' !== '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '@TempData["ErrorMessage"]',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+</script>

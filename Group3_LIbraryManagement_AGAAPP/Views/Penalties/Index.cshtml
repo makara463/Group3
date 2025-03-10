@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Group3_LIbraryManagement_AGAAPP.Models.Penalty>
+
+@{
+    ViewData["Title"] = "Penalty List";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<div class="container">
+
+    <!-- Success/Error Message -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Create New Penalty Button -->
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New Penalty</a>
+    </p>
+
+    <!-- Penalties Table -->
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Student Name</th>
+                <th>Issue Title</th>
+                <th>Penalty Type</th>
+                <th>Amount</th>
+                <th>Penalty Date</th>
+                <th>Payment Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Student.Name</td>
+                    <td>@item.Issue.BookId</td>
+                    <td>@item.PenaltyType</td>
+                    <td>@item.Amount</td>
+                    <td>@item.PenaltyDate.ToShortDateString()</td>
+                    <td>
+                        <span class="badge @(item.PaymentStatus == "Paid" ? "bg-success" : "bg-danger")">
+                            @item.PaymentStatus
+                        </span>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <button onclick="confirmDelete('@item.Id')" class="btn btn-sm btn-danger">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // SweetAlert Confirmation for Delete
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Send a POST request to delete the attendance
+                fetch(`/Penalties/Delete/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = '/Penalties'; // Redirect to the Index page
+                    } else {
+                        Swal.fire('Error', 'Failed to delete the Issue.', 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    // SweetAlert Success/Error Notifications
+    const successMessage = '@TempData["SuccessMessage"]';
+    const errorMessage = '@TempData["ErrorMessage"]';
+
+    if (successMessage) {
+        Swal.fire({
+            title: 'Success!',
+            text: successMessage,
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    }
+
+    if (errorMessage) {
+        Swal.fire({
+            title: 'Error!',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
+</script>

@@ -33,21 +33,24 @@
         <div id="libraryDropdown" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Manage Library:</h6>
-                <a class="collapse-item" asp-controller="Book" asp-action="Index">
+                <a class="collapse-item" asp-controller="Books" asp-action="Index">
                     <i class="fas fa-fw fa-book"></i> Books
                 </a>
-                <a class="collapse-item" asp-controller="Issue" asp-action="Index">
+                <a class="collapse-item" asp-controller="Students" asp-action="Index">
+                    <i class="fas fa-fw fa-user"></i> Student
+                </a>
+                <a class="collapse-item" asp-controller="Issues" asp-action="Index">
                     <i class="fas fa-fw fa-hand-holding"></i> Issue
                 </a>
                 <a class="collapse-item" asp-controller="Publication" asp-action="Index">
                     <i class="fas fa-fw fa-newspaper"></i> Publications
                 </a>
-                <a class="collapse-item" asp-controller="Penalty" asp-action="Index">
+                <a class="collapse-item" asp-controller="Penalties" asp-action="Index">
                     <i class="fas fa-fw fa-exclamation-triangle"></i> Penalties
                 </a>
-                <a class="collapse-item" asp-controller="Attendance" asp-action="Index">
-                    <i class="fas fa-fw fa-calendar-check"></i> Attendance
-                </a>
+                <a class="collapse-item" asp-controller="Attendances" asp-action="Index"> 
+                     <i class="fas fa-fw fa-calendar-check"></i> Attendances 
+                 </a>
             </div>
         </div>
     </li>

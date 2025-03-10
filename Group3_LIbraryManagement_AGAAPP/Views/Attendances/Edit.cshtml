@@ -1,0 +1,121 @@
+﻿@model Group3_LIbraryManagement_AGAAPP.Models.Attendance
+
+@{
+    ViewData["Title"] = "Edit Attendance";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<!-- Card Container -->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-8">
+            <!-- Card -->
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="card-title text-center mb-0">Edit Attendance</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post" id="editForm" class="row g-3">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <!-- Hidden ID Field -->
+                        <input type="hidden" asp-for="Id" />
+
+                        <!-- Student Field -->
+                        <div class="col-md-6">
+                            <label asp-for="StudentId" class="form-label fw-bold"></label>
+                            <select asp-for="StudentId" class="form-select" asp-items="ViewBag.StudentId">
+                                <option value="" disabled selected>Select Student</option>
+                            </select>
+                            <span asp-validation-for="StudentId" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Attendance Date Field -->
+                        <div class="col-md-6">
+                            <label asp-for="AttendanceDate" class="form-label fw-bold"></label>
+                            <input asp-for="AttendanceDate" type="date" class="form-control" />
+                            <span asp-validation-for="AttendanceDate" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Time In Field -->
+                        <div class="col-md-6">
+                            <label asp-for="TimeIn" class="form-label fw-bold"></label>
+                            <input asp-for="TimeIn" type="time" class="form-control" />
+                            <span asp-validation-for="TimeIn" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Time Out Field -->
+                        <div class="col-md-6">
+                            <label asp-for="TimeOut" class="form-label fw-bold"></label>
+                            <input asp-for="TimeOut" type="time" class="form-control" />
+                            <span asp-validation-for="TimeOut" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Status Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Status" class="form-label fw-bold"></label>
+                            <select asp-for="Status" class="form-select">
+                                <option value="" disabled selected>Select Status</option>
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Submit and Cancel Buttons -->
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-2">Save Changes</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SweetAlert Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check for success message
+        const successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: successMessage,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Index")'; // Redirect to Index page
+                }
+            });
+        }
+
+        // Check for error message
+        const errorMessage = '@TempData["ErrorMessage"]';
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errorMessage,
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+
+    // Form Validation with SweetAlert
+    document.getElementById('editForm').addEventListener('submit', function (e) {
+        const form = e.target;
+        if (!form.checkValidity()) {
+            e.preventDefault(); // Prevent form submission
+            Swal.fire({
+                icon: 'warning',
+                title: 'Validation Error',
+                text: 'Please fill in all required fields.',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+</script>

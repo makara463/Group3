@@ -1,0 +1,113 @@
+﻿@model Group3_LIbraryManagement_AGAAPP.Models.Issue
+
+@{
+    ViewData["Title"] = "Edit Issue";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<!-- Main Card -->
+<div class="card shadow-lg border-0 rounded-lg mt-4">
+    <div class="card-header bg-primary text-white py-3">
+        <h6 class="m-0 font-weight-bold">Edit Issue</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post" id="editForm">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Book Dropdown -->
+            <div class="mb-3">
+                <label asp-for="BookId" class="form-label fw-bold">Book</label>
+                <select asp-for="BookId" class="form-select" asp-items="ViewBag.BookId">
+                    <option value="">-- Select a Book --</option>
+                </select>
+                <span asp-validation-for="BookId" class="text-danger small"></span>
+            </div>
+
+            <!-- Student Dropdown -->
+            <div class="mb-3">
+                <label asp-for="StudentId" class="form-label fw-bold">Student</label>
+                <select asp-for="StudentId" class="form-select" asp-items="ViewBag.StudentId">
+                    <option value="">-- Select a Student --</option>
+                </select>
+                <span asp-validation-for="StudentId" class="text-danger small"></span>
+            </div>
+
+            <!-- Issue Date -->
+            <div class="mb-3">
+                <label asp-for="IssueDate" class="form-label fw-bold">Issue Date</label>
+                <input asp-for="IssueDate" class="form-control" type="date" />
+                <span asp-validation-for="IssueDate" class="text-danger small"></span>
+            </div>
+
+            <!-- Return Date -->
+            <div class="mb-3">
+                <label asp-for="ReturnDate" class="form-label fw-bold">Return Date</label>
+                <input asp-for="ReturnDate" class="form-control" type="date" />
+                <span asp-validation-for="ReturnDate" class="text-danger small"></span>
+            </div>
+
+            <!-- Status -->
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label fw-bold">Status</label>
+                <select asp-for="Status" class="form-select">
+                    <option value="Issued">Issued</option>
+                    <option value="Returned">Returned</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger small"></span>
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="d-flex justify-content-between align-items-center">
+                <button type="submit" class="btn btn-primary px-4">Update</button>
+                <a asp-action="Index" class="btn btn-secondary px-4">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- SweetAlert Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Success Message
+        const successMessage = '@Html.Raw(TempData["SuccessMessage"])';
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: successMessage,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Index")'; // Redirect to Index page
+                }
+            });
+        }
+
+        // Error Message
+        const errorMessage = '@Html.Raw(TempData["ErrorMessage"])';
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errorMessage,
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+
+    // Form Validation with SweetAlert
+    document.getElementById('editForm').addEventListener('submit', function (e) {
+        const form = e.target;
+        if (!form.checkValidity()) {
+            e.preventDefault(); // Prevent form submission
+            Swal.fire({
+                icon: 'warning',
+                title: 'Validation Error',
+                text: 'Please fill in all required fields.',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+</script>
+

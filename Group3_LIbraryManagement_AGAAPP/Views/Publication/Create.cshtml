@@ -1,0 +1,150 @@
+﻿@model Group3_LIbraryManagement_AGAAPP.Models.Publication
+
+@{
+    ViewData["Title"] = "Create New Publication";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<!-- Include SweetAlert2 CSS and JS -->
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-12">
+            <!-- Card Container -->
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="card-title text-center mb-0">Create New Publication</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" class="row g-3">
+                        <!-- ID Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Id" class="form-label fw-bold"></label>
+                            <input asp-for="Id" class="form-control" placeholder="Enter ID (if required)" />
+                            <span asp-validation-for="Id" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Title Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Title" class="form-label fw-bold"></label>
+                            <input asp-for="Title" class="form-control" placeholder="Enter Title" />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Author Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Author" class="form-label fw-bold"></label>
+                            <input asp-for="Author" class="form-control" placeholder="Enter Author" />
+                            <span asp-validation-for="Author" class="text-danger small"></span>
+                        </div>
+
+                        <!-- ISBN Code Field -->
+                        <div class="col-md-6">
+                            <label asp-for="ISBN_Code" class="form-label fw-bold"></label>
+                            <input asp-for="ISBN_Code" class="form-control" placeholder="Enter ISBN Code" />
+                            <span asp-validation-for="ISBN_Code" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Publisher Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Publisher" class="form-label fw-bold"></label>
+                            <input asp-for="Publisher" class="form-control" placeholder="Enter Publisher" />
+                            <span asp-validation-for="Publisher" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Genre Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Genre" class="form-label fw-bold"></label>
+                            <input asp-for="Genre" class="form-control" placeholder="Enter Genre" />
+                            <span asp-validation-for="Genre" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Publication Type Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Publication_Type" class="form-label fw-bold"></label>
+                            <input asp-for="Publication_Type" class="form-control" placeholder="Enter Publication Type" />
+                            <span asp-validation-for="Publication_Type" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Publication Language Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Publication_Language" class="form-label fw-bold"></label>
+                            <input asp-for="Publication_Language" class="form-control" placeholder="Enter Publication Language" />
+                            <span asp-validation-for="Publication_Language" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Book Edition Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Book_Edition" class="form-label fw-bold"></label>
+                            <input asp-for="Book_Edition" class="form-control" placeholder="Enter Book Edition" />
+                            <span asp-validation-for="Book_Edition" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Page Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Page" class="form-label fw-bold"></label>
+                            <input asp-for="Page" class="form-control" placeholder="Enter Number of Pages" />
+                            <span asp-validation-for="Page" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Description Field -->
+                        <div class="col-md-12">
+                            <label asp-for="Description" class="form-label fw-bold"></label>
+                            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter Description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Available Copies Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Available_Copy" class="form-label fw-bold"></label>
+                            <input asp-for="Available_Copy" class="form-control" placeholder="Enter Available Copies" />
+                            <span asp-validation-for="Available_Copy" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Total Copies Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Copies_Total" class="form-label fw-bold"></label>
+                            <input asp-for="Copies_Total" class="form-control" placeholder="Enter Total Copies" />
+                            <span asp-validation-for="Copies_Total" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Submit and Cancel Buttons -->
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-2">Save</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SweetAlert2 Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check for success message
+        if ('@TempData["SuccessMessage"]' !== '') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["SuccessMessage"]',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Index")'; // Redirect to Index page
+                }
+            });
+        }
+
+        // Check for error message
+        if ('@TempData["ErrorMessage"]' !== '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '@TempData["ErrorMessage"]',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+</script>

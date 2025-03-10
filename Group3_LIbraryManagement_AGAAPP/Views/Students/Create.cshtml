@@ -1,0 +1,150 @@
+﻿@model Group3_LIbraryManagement_AGAAPP.Models.Student
+
+@{
+    ViewData["Title"] = "Create New Student";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<!-- Card Container -->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-8">
+            <!-- Card -->
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="card-title text-center mb-0">Create New Student</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" id="createForm" class="row g-3">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <!-- ID Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Id" class="form-label fw-bold"></label>
+                            <input asp-for="Id" class="form-control" placeholder="Enter Student ID" />
+                            <span asp-validation-for="Id" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Name Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="form-label fw-bold"></label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter Name" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Gender Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Gender" class="form-label fw-bold"></label>
+                            <select asp-for="Gender" class="form-select" aria-label="Select Gender">
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Phone Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label fw-bold"></label>
+                            <input asp-for="Phone" class="form-control" placeholder="Enter Phone Number" />
+                            <span asp-validation-for="Phone" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label fw-bold"></label>
+                            <input asp-for="Email" class="form-control" placeholder="Enter Email" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Major Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Major" class="form-label fw-bold"></label>
+                            <input asp-for="Major" class="form-control" placeholder="Enter Major" />
+                            <span asp-validation-for="Major" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Year Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Year" class="form-label fw-bold"></label>
+                            <input asp-for="Year" class="form-control" placeholder="Enter Year" />
+                            <span asp-validation-for="Year" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Semester Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Semester" class="form-label fw-bold"></label>
+                            <input asp-for="Semester" class="form-control" placeholder="Enter Semester" />
+                            <span asp-validation-for="Semester" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Shift Field -->
+                        <div class="col-md-6">
+                            <label asp-for="Shift" class="form-label fw-bold"></label>
+                            <select asp-for="Shift" class="form-select" aria-label="Select Shift">
+                                <option value="" disabled selected>Select Shift</option>
+                                <option value="Morning">Morning</option>
+                                <option value="Evening">Evening</option>
+                                <option value="Saturday">Saturday</option>
+                            </select>
+                            <span asp-validation-for="Shift" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Submit and Cancel Buttons -->
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-2">Save</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SweetAlert Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check for success message
+        const successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: successMessage,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Index")'; // Redirect to Index page
+                }
+            });
+        }
+
+        // Check for error message
+        const errorMessage = '@TempData["ErrorMessage"]';
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errorMessage,
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+
+    // Form Validation with SweetAlert
+    document.getElementById('createForm').addEventListener('submit', function (e) {
+        const form = e.target;
+        if (!form.checkValidity()) {
+            e.preventDefault(); // Prevent form submission
+            Swal.fire({
+                icon: 'warning',
+                title: 'Validation Error',
+                text: 'Please fill in all required fields.',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+</script>
