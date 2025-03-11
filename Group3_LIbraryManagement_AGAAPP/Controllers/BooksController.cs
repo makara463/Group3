@@ -154,5 +154,10 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
         {
             return _context.Books.Any(e => e.Id == id);
         }
+        public IActionResult view_book_stock()
+        {
+            var books = _context.Books.Where(b => b.Status == "Available").ToList();
+            return View("book_stock",books);
+        }
     }
 }

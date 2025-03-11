@@ -35,7 +35,6 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
             {
                 return NotFound();
             }
-
             var penalty = await _context.Penalties
                 .Include(p => p.Issue)
                 .Include(p => p.Student)

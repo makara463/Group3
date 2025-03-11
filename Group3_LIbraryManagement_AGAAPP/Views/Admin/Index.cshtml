@@ -1,160 +1,124 @@
-﻿@model dynamic
+﻿@model IEnumerable<Group3_LIbraryManagement_AGAAPP.Models.Book>
 
 @{
-    ViewData["Title"] = "Library System Report";
+    ViewData["Title"] = "Book Management";
     Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
 }
 
-<div class="container-fluid mt-5">
-    <!-- Header Section -->
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-8 text-center">
-            <h1 class="display-4 fw-bold">Library System Report</h1>
-            <p class="lead text-muted">Comprehensive overview of library statistics and performance metrics.</p>
-        </div>
-    </div>
+<!-- Custom Styles -->
+<style>
+    /* Card Styling */
+    .book-card {
+        border: 1px solid #e3e6f0;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
 
-    <!-- Export Buttons -->
-    <div class="row justify-content-end mb-4">
-        <div class="col-auto">
-            <a href="/Report/ExportToExcel" class="btn btn-success me-2 shadow-sm">
-                <i class="fas fa-file-excel me-2"></i> Export to Excel
-            </a>
-            <a href="/Report/ExportToPdf" class="btn btn-danger shadow-sm">
-                <i class="fas fa-file-pdf me-2"></i> Export to PDF
-            </a>
-        </div>
-    </div>
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
 
-    <!-- Report Cards -->
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card border-primary h-100">
-                <div class="card-body d-flex flex-column align-items-center">
-                    <h5 class="card-title text-primary fw-bold">Total Books</h5>
-                    <p class="card-text display-4 text-primary">@Model.BookCount</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-success h-100">
-                <div class="card-body d-flex flex-column align-items-center">
-                    <h5 class="card-title text-success fw-bold">Total Students</h5>
-                    <p class="card-text display-4 text-success">@Model.StudentCount</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-info h-100">
-                <div class="card-body d-flex flex-column align-items-center">
-                    <h5 class="card-title text-info fw-bold">Total Issues</h5>
-                    <p class="card-text display-4 text-info">@Model.IssueCount</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-warning h-100">
-                <div class="card-body d-flex flex-column align-items-center">
-                    <h5 class="card-title text-warning fw-bold">Not Issued</h5>
-                    <p class="card-text display-4 text-warning">@Model.NotIssuedCount</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-danger h-100">
-                <div class="card-body d-flex flex-column align-items-center">
-                    <h5 class="card-title text-danger fw-bold">Unpaid Penalties</h5>
-                    <p class="card-text display-4 text-danger">@Model.UnpaidPenalties</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        .book-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover; /* Ensures the image fits nicely within the card */
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
 
-    <!-- Chart Section -->
-    <div class="row mt-5">
+    .book-card-body {
+        padding: 1rem;
+    }
+
+    .book-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .book-details {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+
+    .book-status {
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .badge-success {
+        background-color: #1cc88a;
+        color: #fff;
+    }
+
+    .badge-danger {
+        background-color: #e74a3b;
+        color: #fff;
+    }
+
+    /* Button Styling */
+    .btn-action {
+        background: linear-gradient(90deg, #4e73df, #224abe);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: transform 0.3s ease-in-out;
+    }
+        .btn-action:hover {
+            transform: scale(1.05);
+        }
+</style>
+
+<!-- Main Container -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Header -->
+        <div class="col-md-12 mb-4 text-center">
+            <h2 class="fw-bold text-primary">All Books</h2>
+            <p class="text-muted">Manage and view all available books in the library.</p>
+        </div>
+
+        <!-- Book Cards -->
         <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-header bg-white border-bottom">
-                    <h3 class="mb-0 fw-bold">Visual Representation</h3>
-                </div>
-                <div class="card-body">
-                    <canvas id="reportChart" width="400" height="200"></canvas>
-                </div>
+            <div class="row g-4">
+                @if (Model.Any())
+                {
+                    @foreach (var book in Model)
+                    {
+                        <div class="col-md-6 col-lg-4 col-xl-3">
+                            <div class="card book-card">
+                                <!-- Book Image -->
+                                <img src="https://m.media-amazon.com/images/I/416tCmnwU4L._AC_UF1000,1000_QL80_.jpg" alt=" Cover" />
+
+                                <!-- Book Details -->
+                                <div class="card-body book-card-body">
+                                    <h5 class="book-title">@book.Title</h5>
+                                    <p class="book-details"><strong>ISBN:</strong> @book.ISBN_Code</p>
+                                    <p class="book-details"><strong>Publication:</strong> @book.Publication?.Title</p>
+                                    <p class="book-details"><strong>Condition:</strong> @book.BookCondition</p>
+                                    <p class="book-details"><strong>Location:</strong> @book.ShelfLocation</p>
+
+                                    <!-- Status Badge -->
+                                    <span class="badge @(book.Status == "Available" ? "badge-success" : "badge-danger") book-status">
+                                        @book.Status
+                                    </span>
+
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-12 text-center">
+                        <p class="text-muted fw-bold">No books found in the library.</p>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
-
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    // Data for the chart
-    const data = {
-        labels: ['Books', 'Students', 'Issues', 'Not Issued', 'Unpaid Penalties'],
-        datasets: [{
-            label: 'Counts',
-            data: [@Model.BookCount, @Model.StudentCount, @Model.IssueCount, @Model.NotIssuedCount, @Model.UnpaidPenalties],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.6)',   // Red
-                'rgba(54, 162, 235, 0.6)',   // Blue
-                'rgba(75, 192, 192, 0.6)',   // Cyan
-                'rgba(255, 206, 86, 0.6)',   // Yellow
-                'rgba(153, 102, 255, 0.6)'   // Purple
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(153, 102, 255, 1)'
-            ],
-            borderWidth: 1
-        }]
-    };
-
-    // Chart configuration
-    const config = {
-        type: 'bar',
-        data: data,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Library Statistics Overview',
-                    font: {
-                        size: 16,
-                        weight: 'bold'
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        font: {
-                            size: 12
-                        }
-                    }
-                },
-                x: {
-                    ticks: {
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            }
-        }
-    };
-
-    // Render the chart
-    const reportChart = new Chart(
-        document.getElementById('reportChart'),
-        config
-    );
-</script>

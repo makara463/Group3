@@ -43,13 +43,8 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
         }
         public IActionResult Create()
         {
-            // Filter books to include only those with status "Available" and materialize the result as a list
             var availableBooks = _context.Books.Where(b => b.Status == "Available").ToList();
-
-            // Populate the SelectList for BookId with the filtered list of books
             ViewData["BookId"] = new SelectList(availableBooks, "Id", "Title");
-
-            // Populate the SelectList for StudentId as before
             ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name");
 
             return View();
@@ -59,7 +54,6 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
         public async Task<IActionResult> Create([Bind("Id,BookId,StudentId,IssueDate,ReturnDate,Status")] Issue issue)
         {
                 _context.Add(issue);
-
                 var book = await _context.Books.FindAsync(issue.BookId);
                 if (book == null)
                 {

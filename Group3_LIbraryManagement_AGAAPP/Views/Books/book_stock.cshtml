@@ -1,0 +1,204 @@
+﻿@model IEnumerable<Group3_LIbraryManagement_AGAAPP.Models.Book>
+
+@{
+    ViewData["Title"] = "Available Books Report";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+
+    // Calculate total available books
+    int totalAvailableBooks = Model.Count();
+}
+
+<!-- Custom Styles -->
+<style>
+    /* Card Header Gradient */
+    .card-header {
+        background: linear-gradient(90deg, #4e73df, #224abe);
+        border-radius: 8px 8px 0 0;
+    }
+
+    /* Table Styling */
+    .table thead th {
+        background-color: #f8f9fc;
+        color: #333;
+        font-weight: 600;
+        border-color: #e3e6f0;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        font-size: 0.9rem;
+        color: #5a5c69;
+    }
+
+    /* Badge Styling */
+    .badge-success {
+        background-color: #1cc88a;
+        color: #fff;
+    }
+
+    /* Total Summary Styling */
+    .summary-card {
+        background: #fff;
+        border: 1px solid #e3e6f0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+        .summary-card h5 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card p {
+            font-size: 1rem;
+            color: #858796;
+            margin-bottom: 0;
+        }
+
+    /* Buttons */
+    .btn-primary {
+        background: linear-gradient(90deg, #4e73df, #224abe);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+    /* Back Button Styling */
+    .back-button {
+        background: #6c757d;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        color: #fff;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .back-button:hover {
+            transform: scale(1.05);
+        }
+</style>
+
+<!-- Main Container -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <!-- Back Button -->
+        <div class="col-md-12 mb-4 text-start">
+            <a asp-action="Index" class="btn back-button shadow-sm">
+                <i class="fas fa-arrow-left me-2"></i> Back to Index
+            </a>
+        </div>
+
+        <!-- Summary Card -->
+        <div class="col-md-12 col-lg-4 mb-4">
+            <div class="summary-card">
+                <h5>Total Available Books</h5>
+                <p class="display-4 fw-bold">@totalAvailableBooks</p>
+            </div>
+        </div>
+
+        <!-- Book Stock Table -->
+        <div class="col-md-12 col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-white">Available Books Report</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover align-middle" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">ISBN Code</th>
+                                    <th scope="col">Publication</th>
+                                    <th scope="col">Shelf Location</th>
+                                    <th scope="col">Book Condition</th>
+                                    <th scope="col" class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Any())
+                                {
+                                    @foreach (var book in Model)
+                                    {
+                                        <tr>
+                                            <td>@book.Title</td>
+                                            <td>@book.ISBN_Code</td>
+                                            <td>@book.Publication?.Title</td>
+                                            <td>@book.ShelfLocation</td>
+                                            <td>@book.BookCondition</td>
+                                            <td class="text-center">
+                                                <a asp-action="Edit" asp-route-id="@book.Id" class="btn btn-sm btn-warning shadow-sm me-2" data-bs-toggle="tooltip" title="Edit this book">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button onclick="confirmDelete('@book.Id')" class="btn btn-sm btn-danger shadow-sm" data-bs-toggle="tooltip" title="Delete this book">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center">No available books found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SweetAlert Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // SweetAlert Confirmation for Delete
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Send a POST request to delete the book
+                fetch(`/Books/Delete/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = '/Books/BookStock'; // Redirect to the BookStock page
+                    } else {
+                        response.text().then(errorMessage => {
+                            Swal.fire('Error', errorMessage || 'Failed to delete the book.', 'error');
+                        });
+                    }
+                }).catch(error => {
+                    Swal.fire('Error', 'An unexpected error occurred.', 'error');
+                });
+            }
+        });
+    }
+
+    // Initialize Tooltips
+    document.addEventListener('DOMContentLoaded', () => {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    });
+</script>

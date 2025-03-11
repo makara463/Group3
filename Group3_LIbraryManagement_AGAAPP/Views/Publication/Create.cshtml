@@ -6,10 +6,82 @@
 }
 
 <!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="container mt-4">
+<style>
+    .card-header {
+        background: linear-gradient(90deg, #4e73df, #224abe);
+        border-radius: 8px 8px 0 0;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 8px rgba(78, 115, 223, 0.25);
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #4e73df, #224abe);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .btn-secondary:hover {
+        transform: scale(1.05);
+    }
+
+    .text-danger {
+        font-size: 0.85rem;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-12 col-lg-12">
+        <div class="col-md-12 col-lg-10">
             <!-- Card Container -->
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
@@ -79,7 +151,6 @@
                             <input asp-for="Book_Edition" class="form-control" placeholder="Enter Book Edition" />
                             <span asp-validation-for="Book_Edition" class="text-danger small"></span>
                         </div>
-
                         <!-- Page Field -->
                         <div class="col-md-6">
                             <label asp-for="Page" class="form-label fw-bold"></label>
@@ -93,14 +164,12 @@
                             <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter Description"></textarea>
                             <span asp-validation-for="Description" class="text-danger small"></span>
                         </div>
-
                         <!-- Available Copies Field -->
                         <div class="col-md-6">
                             <label asp-for="Available_Copy" class="form-label fw-bold"></label>
                             <input asp-for="Available_Copy" class="form-control" placeholder="Enter Available Copies" />
                             <span asp-validation-for="Available_Copy" class="text-danger small"></span>
                         </div>
-
                         <!-- Total Copies Field -->
                         <div class="col-md-6">
                             <label asp-for="Copies_Total" class="form-label fw-bold"></label>
@@ -110,7 +179,7 @@
 
                         <!-- Submit and Cancel Buttons -->
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary me-2">Save</button>
+                            <button type="submit" class="btn btn-primary me-3">Save</button>
                             <a asp-action="Index" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
@@ -119,7 +188,6 @@
         </div>
     </div>
 </div>
-
 <!-- SweetAlert2 Script -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
