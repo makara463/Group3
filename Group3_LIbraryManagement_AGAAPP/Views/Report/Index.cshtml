@@ -32,7 +32,9 @@
             <div class="card border-primary h-100">
                 <div class="card-body d-flex flex-column align-items-center">
                     <h5 class="card-title text-primary fw-bold">Total Books</h5>
-                    <p class="card-text display-4 text-primary">@Model.BookCount</p>
+                    <p class="card-text display-4 text-primary">
+                        <a asp-controller="Books" asp-action="Index" class="text-decoration-none text-primary">@Model.BookCount</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -40,7 +42,9 @@
             <div class="card border-success h-100">
                 <div class="card-body d-flex flex-column align-items-center">
                     <h5 class="card-title text-success fw-bold">Total Students</h5>
-                    <p class="card-text display-4 text-success">@Model.StudentCount</p>
+                    <p class="card-text display-4 text-success">
+                        <a asp-controller="Students" asp-action="Index" class="text-decoration-none text-success">@Model.StudentCount</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -48,7 +52,9 @@
             <div class="card border-info h-100">
                 <div class="card-body d-flex flex-column align-items-center">
                     <h5 class="card-title text-info fw-bold">Total Issues</h5>
-                    <p class="card-text display-4 text-info">@Model.IssueCount</p>
+                    <p class="card-text display-4 text-info">
+                        <a asp-controller="Issues" asp-action="Index" class="text-decoration-none text-success"> @Model.IssueCount</a>
+                      </p>
                 </div>
             </div>
         </div>
@@ -56,7 +62,9 @@
             <div class="card border-warning h-100">
                 <div class="card-body d-flex flex-column align-items-center">
                     <h5 class="card-title text-warning fw-bold">Not Return</h5>
-                    <p class="card-text display-4 text-warning">@Model.NotIssuedCount</p>
+                    <p class="card-text display-4 text-warning">
+                        <a asp-controller="Issues" asp-action="Index" class="text-decoration-none text-success">@Model.NotIssuedCount</a> 
+                    </p>
                 </div>
             </div>
         </div>
@@ -64,7 +72,9 @@
             <div class="card border-danger h-100">
                 <div class="card-body d-flex flex-column align-items-center">
                     <h5 class="card-title text-danger fw-bold">Unpaid Penalties</h5>
-                    <p class="card-text display-4 text-danger">@Model.UnpaidPenalties</p>
+                    <p class="card-text display-4 text-danger">
+                        <a asp-controller="Penalties" asp-action="Index" class="text-decoration-none text-success">@Model.UnpaidPenalties</a>
+                    </p>
                 </div>
             </div>
         </div>

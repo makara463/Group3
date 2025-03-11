@@ -43,8 +43,15 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
         }
         public IActionResult Create()
         {
-            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title");
+            // Filter books to include only those with status "Available" and materialize the result as a list
+            var availableBooks = _context.Books.Where(b => b.Status == "Available").ToList();
+
+            // Populate the SelectList for BookId with the filtered list of books
+            ViewData["BookId"] = new SelectList(availableBooks, "Id", "Title");
+
+            // Populate the SelectList for StudentId as before
             ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name");
+
             return View();
         }
         [HttpPost]
@@ -52,9 +59,18 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
         public async Task<IActionResult> Create([Bind("Id,BookId,StudentId,IssueDate,ReturnDate,Status")] Issue issue)
         {
                 _context.Add(issue);
+
+                var book = await _context.Books.FindAsync(issue.BookId);
+                if (book == null)
+                {
+                    TempData["ErrorMessage"] = "The specified book does not exist.";
+                    return View(issue); 
+                }
+                book.Status = "Issued";
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Issue created successfully!";
                 return RedirectToAction(nameof(Index));
+           
         }
         public async Task<IActionResult> Edit(string id)
         {
@@ -79,8 +95,6 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
             {
                 return NotFound();
             }
-
-           
                 try
                 {
                     _context.Update(issue);
