@@ -77,6 +77,7 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
             {
                 return NotFound();
             }
+
             ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", issue.BookId);
             ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", issue.StudentId);
             return View(issue);
@@ -89,25 +90,29 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
             {
                 return NotFound();
             }
-                try
+            try
+            {
+                var book = await _context.Books.FindAsync(issue.BookId);
+                if (book != null)
                 {
-                    _context.Update(issue);
-                    await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = "Issue updated successfully!";
+                    book.Status = "Available";
                 }
-                catch (DbUpdateConcurrencyException)
+                _context.Update(issue);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Issue updated successfully!";
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!IssueExists(issue.Id))
                 {
-                    if (!IssueExists(issue.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
-            
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Delete(string id)
         {
@@ -115,7 +120,6 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
             {
                 return NotFound();
             }
-
             var issue = await _context.Issues
                 .Include(i => i.Book)
                 .Include(i => i.Student)

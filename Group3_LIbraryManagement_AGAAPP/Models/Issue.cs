@@ -2,8 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Group3_LIbraryManagement_AGAAPP.Models
-{
-    public class Issue
+{   public class Issue
     {
         [Key]
         [MaxLength(10)]
@@ -31,4 +30,3 @@ namespace Group3_LIbraryManagement_AGAAPP.Models
         
     }
 }
-

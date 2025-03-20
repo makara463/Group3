@@ -25,7 +25,7 @@ namespace Group3_LIbraryManagement_AGAAPP.Models
 
         [Required]
         public DateTime PenaltyDate { get; set; }
-
+         
         [Required]
         public required string PaymentStatus { get; set; }
 

@@ -31,7 +31,7 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Index", "Report");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -40,7 +40,6 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
             }
             return View(model);
         }
-
         [HttpGet]
         public IActionResult Login() => View();
 
@@ -52,7 +51,7 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Index", "Report");
                 }
                 ModelState.AddModelError("", "Invalid login attempt.");
             }

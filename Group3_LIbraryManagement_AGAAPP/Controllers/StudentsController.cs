@@ -35,6 +35,10 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
                 // Filter the students by Name or Email (case-insensitive)
                 studentsQuery = studentsQuery.Where(s =>
                     s.Name.ToLower().Contains(searchQuery) ||
+                    s.Gender.ToLower().Contains(searchQuery) ||
+                    s.Semester.ToLower().Contains(searchQuery) ||
+                    s.Email.ToLower().Contains(searchQuery) ||
+                    s.Major.ToLower().Contains(searchQuery) ||
                     s.Email.ToLower().Contains(searchQuery));
 
                 // Log the filtered query for debugging
@@ -132,7 +136,6 @@ namespace Group3_LIbraryManagement_AGAAPP.Controllers
                 return RedirectToAction(nameof(Index));
             }
          
-
         // GET: Students/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
